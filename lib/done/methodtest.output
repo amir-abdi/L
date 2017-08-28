@@ -1,0 +1,31 @@
+7 DB
+sp # 20
+wf f 5.5
+op
+== * 5 # 0 * 0
+jz * 0 # 11
+wt s gonna return
+pm # 5 # 1
+pp1
+sp # 0
+om # 5 # 1
+op
+jp # 11
+wi * 5
+- * 5 # 1 * 0
+= * 5 * 0
+= * 5 * 5
+pm # 5 # 1
+pp1
+sp # 2
+om # 5 # 1
+op
+= * 6 # 10
+wt s beforetest 1
+= * 5 * 6
+pm # 5 # 2
+pp1
+sp # 2
+om # 5 # 2
+wt s aftertes\nt1
+op

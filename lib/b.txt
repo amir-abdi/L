@@ -1,0 +1,23 @@
+struct s1
+{
+    int a;
+    int b;
+};
+struct s2
+{
+    s1 x[100];
+    s1 r;
+};
+
+
+int main()
+{
+s2 y;
+y.r.a = 2323;
+writeint y.r.a;
+writetext "\n";
+
+
+
+}
+

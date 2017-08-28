@@ -1,0 +1,36 @@
+int test;
+string xxx[10][20][30];
+int xx;
+
+struct testStruct2{
+        float e[10][20];
+        string ssssss;
+    };
+
+struct testStruct
+{
+    int x;
+    float y;
+    string z;
+    testStruct2 nestedStruct;
+};
+
+int main(int x)
+{
+    int i;
+    i = x;
+}
+
+
+ta dar nahayat Statement ro handle konam
+
+function call
+
+pending: array of struct --> khaste shodam, velesh kardam!!!
+
+PGEN: methodCall , Statement,
+
+if
+for
+break
+continue

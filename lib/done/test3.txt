@@ -1,0 +1,9 @@
+int main()
+{
+    int x;
+    readint x;
+    writeint x;
+    readfloat x;
+    writefloat x;
+    writetext "f";
+}

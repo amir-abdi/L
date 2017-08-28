@@ -1,0 +1,25 @@
+float aaa()
+{
+writefloat 5.5;
+}
+
+int test1(int x)
+{
+    if (x == 0)
+{
+writetext "gonna return";
+aaa();
+return;
+}
+    writeint x;
+x = x-1;
+test1(x);
+}
+
+int main()
+{
+a = 10;
+  writetext "beforetest 1";
+    test1(a);
+    writetext "aftertes\nt1";
+}

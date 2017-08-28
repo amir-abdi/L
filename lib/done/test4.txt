@@ -1,0 +1,17 @@
+int main()
+{
+int x;
+x = 10;
+for (x = 1; true; x = x+1)
+{
+
+if (x > 4758435)
+{
+break;
+}
+else
+{
+writeint x;
+}
+}
+}

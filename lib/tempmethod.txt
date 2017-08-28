@@ -1,0 +1,127 @@
+        #***************************************************************Method***********************************************888
+      when "@methodDSCP"
+        @currentMethodARStart = @adc
+        t, id = @ss.pop(2)
+        @mainAdd = @pc if (id.name == "main")
+
+        id.idKind = :method
+        #dputs t
+        id.dscp = MethodDSCP.new(@pc, t.dscp.type, nil, SymbolTable.new(@scanner.global_st,[]), allocateMem(0))
+#        dputs "ARStart: #{id.dscp.ARStart}"
+
+        @st_stack.push(@scanner.current_st)
+        @scanner.current_st = id.dscp.st
+        @ss.push(id)
+
+      when "@endMethod"
+        endMethod
+
+      when "@stDSCPptEndMethod"
+        stDSCPkt
+        @ss.pop
+        endMethod
+
+      when "@returnFromMethod"        
+
+        @scanner.current_st = @st_stack.pop #not sure!!!
+        @ss.push(0)
+
+        create1OperandCEWithoutResult("op")
+        
+#        dputs "SS Size: " + @ss.size.to_s
+#        dputs "adc: " + @adc.to_s
+#        dputs "structs Sizes: " + @structSize.to_s
+#        dputs "pc: " + @pc.to_s + ' ' + @code.size.to_s
+#        dputs "CODE: "
+#        dputs @code
+      when "@return"
+        @ss.push(0)
+        create1OperandCEWithoutResult("op")
+
+      when "@returnWithValue"
+        @ss.push(1)
+        create1OperandCEWithoutResult("op")
+
+      when "@setReturnValue"
+        value = @ss.pop
+        #****************************************************
+#        @scanner.main_st.entries[4].dscp.type=value.dscp.type
+#        @ss.push(@scanner.main_st.entries[4])
+#        c = getTemp
+#        c.dscp.type = value.dscp.type
+#        @ss.push(c)
+
+        #*****************************************************
+        @ss.push(value)
+#       create2OperandCEWithoutResult("=")
+ #      @ss.push(c.dscp.add)
+       create1OperandCEWithoutResult("push", true)
+        #@ss.push(@scanner.main_st.entries[4])
+
+      when "@push0"        
+        pushAR
+
+        @ss.push(0)
+
+      when "@NDec_push0"
+        pushAR
+        
+        @ss.push(0)
+        @scanner.declaration_mode = false;
+
+      when "@methodCall"
+        #check num args
+        i = @ss.pop #i
+        id = @ss.pop
+        @scanner.create_error(:error_arg_no_mismatch, false) if i != id.dscp.noArgs             
+
+        #push pc
+        create0OperandCE("pp1")
+
+        #set pc to new method
+        pc = id.dscp.pcAddr
+        @ss.push(pc)
+
+        create1OperandCEWithoutResult("sp")
+
+
+
+        #pop AR
+        @ss.push(@currentMethodARStart)#id.dscp.ARStart)
+        @ss.push(@adc-@currentMethodARStart)#id.dscp.ARStart)
+        if (id.dscp.retType != :void)
+          @ss.push(1)
+          create3OperandCEWithoutResult("om")
+        else
+          @ss.push(0)
+          create3OperandCEWithoutResult("om")
+        end
+
+         #***************************************
+#        c = getTempReturnValue
+#        c.dscp.type = id.dscp.retType
+#        @ss.push(c.dscp.add)
+#        create1OperandCEWithoutResult("pop",false)
+#        failed
+
+        if (id.dscp.retType != :void)
+
+          c = @scanner.current_st.entries.last#.push(c)
+          @ss.push(c.dscp.add)
+          create1OperandCEWithoutResult("pop",true)
+
+          @ss.push(c)
+
+        end
+
+        
+
+      when "@sendArg"
+        #send each argument
+        id, i, a = @ss.pop(3)
+        @ss.push(id.dscp.st.entries[i])
+        @ss.push(a)
+        create2OperandCEWithoutResult("=")
+        i+=1
+        @ss.push(id)
+        @ss.push(i)

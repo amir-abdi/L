@@ -1,0 +1,29 @@
+struct s
+{
+int a,b,c;
+int bb[100];
+};
+
+s xxxx;
+s amir ;
+
+int main()
+{
+int a[10][10][10][10];
+int n[5][5][5][5];
+a[6][7][8][9] = 1000;
+n[1][2][3][4] = a[6][7][8][9];
+readint a[2][3][4][5];
+
+
+string str;
+str = "amir abdi";
+string  c;
+c = 'a';
+int y;
+y= 1234;
+readfloat c;
+writeint a[2][3][4][5];
+writeint a[2][3][4][6];
+writeint c;
+}
